@@ -1,5 +1,4 @@
-
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -17,8 +16,7 @@ class Hesap(db.Model):
     veri = db.Column(db.String(200), nullable=False)
     kategori_id = db.Column(db.Integer, db.ForeignKey('kategori.id'), nullable=False)
 
-@app.before_first_request
-def create_tables():
+with app.app_context():
     db.create_all()
 
 @app.route('/')
